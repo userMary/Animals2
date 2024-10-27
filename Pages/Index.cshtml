@@ -1,0 +1,112 @@
+﻿@page
+@model Animals2.Pages.IndexModel
+@{
+    ViewBag.Title = "Page with Animals";
+    Layout = "/Pages/Shared/_Layout.cshtml";
+}
+
+@* <form>
+    <h1>Mary</h1>
+    <h2>Воспроизведение MP3 файлов:</h2>
+
+    <div>
+        <h3>Трек 1:</h3>
+        <audio controls>
+            <source src="/audio/6.mp3" type="audio/mpeg">
+            Ваш браузер не поддерживает аудио.
+        </audio>
+    </div>
+</form> *@
+<section>
+    <form class="container">
+        <table class="my-table">
+            <caption>Animals&Sounds</caption>
+            <tr>
+                <th width="100">Name</th>
+                <th width="100">Sound text</th>
+                <th width="350">Sound</th>
+            </tr>
+
+
+            @foreach (var a in Model.Animals)
+            {
+                <tr>
+                    <td align="center">@a.Name</td>
+                    <td align="center">@a.Sound</td>
+                    <td align="center">
+                        <audio controls>
+                            <source src="@a.SoundUrl" type="audio/mpeg" />
+                        </audio>
+                    </td>
+                </tr>
+            }
+        </table>
+    </form>
+</section>
+
+
+
+<style>
+    .container {
+        display: flex;
+        justify-content: space-between;
+        background-color: #fff7f2;
+        min-width: 550px;
+        max-width: 616px;
+        max-height: 885.5px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 16px;
+        padding-right: 16px;
+        margin-top: 2%;
+        margin-bottom: 2%;
+    }
+
+    .my-table {
+        border-collapse: collapse;
+        border-left: 3px solid #F79361;
+        border-right: 3px solid #F79361;
+        border-bottom: 3px solid #F79361;
+        font-family: "Lucida Grande", sans-serif;
+    }
+
+    .my-table caption {
+        background: #F79361;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        padding: 10px;
+        box-shadow: 0 2px 4px 0 rgba(0,0,0,.3);
+        color: white;
+        font-family: "Roboto Slab",serif;
+        font-style: normal;
+        font-size: 26px;
+        text-align: center;
+        margin: 0;
+    }
+
+    .my-table td, .my-table th {
+        padding: 10px;
+    }
+
+    .my-table th {
+        text-align: center;
+        font-size: 18px;
+    }
+
+    .my-table tr:nth-child(2n) {
+        background: #E5E5E5;
+    }
+
+    .my-table td:last-of-type {
+        text-align: center;
+    }
+
+    .my-table audio {
+        display: inline-block;
+        padding: 5px 10px;
+        background: #F79361;
+        box-shadow: 2px 2px 0 0 #a22800;
+        position: relative;
+    }
+
+</style>

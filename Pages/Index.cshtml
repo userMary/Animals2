@@ -41,14 +41,58 @@
                 </tr>
             }
         </table>
+        <div class="wrap">
+            @* <button onclick="downloadCocktail('@Model.Animals')" class="button">Сохранить в файл</button> *@
+        <button onclick="downloadAnimals()" class="my-btn">Сохранить в файл TXT</button>
+        </div>
     </form>
 </section>
 
+<script>
+    function downloadAnimals()
+    {
+        // Собираем данные о животных в формат строки
+        let animalsData = '';
+        const animals = @Html.Raw(Json.Serialize(Model.Animals));
+
+        animals.forEach(animal => {
+            animalsData += `Name: ${animal.name}\nSound: ${animal.sound}\n\n`;
+        });
+
+        // Создаем blob с текстом
+        const blob = new Blob([animalsData], { type: 'text/plain' });
+        const url = window.URL.createObjectURL(blob);
+
+        // Создаем ссылку для скачивания
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'animals.txt';  // Название файла
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        // Отменяем создание URL
+        window.URL.revokeObjectURL(url);
+    }
+</script>
 
 
 <style>
+    .wrap {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-width: 550px;
+        max-width: 616px;
+        min-height: 90px;
+        text-align: center;
+        font-size: 25px;
+       padding: 10px;
+       margin-top: 10px;
+    }
     .container {
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
         background-color: #fff7f2;
         min-width: 550px;
